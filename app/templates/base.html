@@ -1,0 +1,30 @@
+</body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ titulo }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>SUS Digital</h1>
+        <nav>
+            <a href="/">Início</a> |
+            <a href="/pacientes">Pacientes</a> |
+            <a href="/profissionais">Profissionais</a> |
+            <a href="/agendamentos">Agendamentos</a> |
+            <a href="/exames">Exames</a> |
+            <a href="/encaminhamentos">Encaminhamentos</a>
+        </nav>
+    </header>
+
+    <main>
+    {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SUS Digital</p>
+    </footer>
+</body>
+</html>

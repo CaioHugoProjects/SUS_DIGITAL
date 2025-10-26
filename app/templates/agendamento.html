@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Agendamento de Consultas</h2>
+
+<form method="POST" action="/agendamentos/novo">
+    <label>CPF do Paciente:</label><br>
+    <input type="text" name="cpf_paciente" maxlength="11" required><br><br>
+
+    <label>Registro do Profissional (CRM/COREN):</label><br>
+    <input type="text" name="registro_profissional" required><br><br>
+
+    <label>Data:</label><br>
+    <input type="date" name="data" required><br><br>
+
+    <label>Hora:</label><br>
+    <input type="time" name="hora" required><br><br>
+
+    <button type="submit">Agendar Consulta</button>
+</form>
+
+<hr>
+
+<h3>Agendamentos Realizados</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Paciente</th>
+        <th>Profissional</th>
+        <th>Data</th>
+        <th>Hora</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    {% for a in agendamentos %}
+    <tr>
+        <td>{{ a.paciente }}</td>
+        <td>{{ a.profissional }}</td>
+        <td>{{ a.data }}</td>
+        <td>{{ a.hora }}</td>
+        <td>{{ a.status }}</td>
+        <td>
+            <form action="/agendamentos/cancelar" method="POST" style="display:inline;">
+                <input type="hidden" name="cpf_paciente" value="{{ a.paciente }}">
+                <input type="hidden" name="data" value="{{ a.data }}">
+                <input type="hidden" name="hora" value="{{ a.hora }}">
+                <button type="submit">Cancelar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

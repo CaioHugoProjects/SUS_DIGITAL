@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Solicitação e Resultados de Exames</h2>
+
+<form method="POST" action="/exames/novo">
+    <label>CPF do Paciente:</label><br>
+    <input type="text" name="cpf_paciente" maxlength="11" required><br><br>
+
+    <label>Registro do Profissional (CRM/COREN):</label><br>
+    <input type="text" name="registro_profissional" required><br><br>
+
+    <label>Tipo de Exame:</label><br>
+    <input type="text" name="tipo" required><br><br>
+
+    <label>Data da Solicitação:</label><br>
+    <input type="date" name="data_solicitacao" required><br><br>
+
+    <button type="submit">Solicitar Exame</button>
+</form>
+
+<hr>
+
+<h3>Exames Solicitados</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Paciente</th>
+        <th>Profissional</th>
+        <th>Tipo</th>
+        <th>Status</th>
+        <th>Resultado</th>
+        <th>Data Solicitação</th>
+        <th>Registrar Resultado</th>
+    </tr>
+    {% for e in exames %}
+    <tr>
+        <td>{{ e.paciente }}</td>
+        <td>{{ e.profissional }}</td>
+        <td>{{ e.tipo }}</td>
+        <td>{{ e.status }}</td>
+        <td>{{ e.resultado if e.resultado else "Aguardando..." }}</td>
+        <td>{{ e.data_solicitacao }}</td>
+        <td>
+            {% if e.status != "Concluído" %}
+            <form method="POST" action="/exames/resultado" style="display:inline;">
+                <input type="hidden" name="tipo" value="{{ e.tipo }}">
+                <input type="hidden" name="cpf_paciente" value="{{ e.paciente }}">
+                <input type="text" name="resultado" placeholder="Resultado..." required>
+                <button type="submit">Registrar</button>
+            </form>
+            {% else %}
+            ✔️ Concluído
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

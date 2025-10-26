@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Encaminhamentos Médicos Digitais</h2>
+
+<form method="POST" action="/encaminhamentos/novo">
+    <label>CPF do Paciente:</label><br>
+    <input type="text" name="cpf_paciente" maxlength="11" required><br><br>
+
+    <label>Registro do Profissional (CRM/COREN):</label><br>
+    <input type="text" name="registro_profissional" required><br><br>
+
+    <label>Especialidade de Destino:</label><br>
+    <input type="text" name="especialidade_destino" required><br><br>
+
+    <label>Motivo do Encaminhamento:</label><br>
+    <textarea name="motivo" rows="3" required></textarea><br><br>
+
+    <button type="submit">Emitir Encaminhamento</button>
+</form>
+
+<hr>
+
+<h3>Encaminhamentos Emitidos</h3>
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Paciente</th>
+        <th>Profissional de Origem</th>
+        <th>Especialidade de Destino</th>
+        <th>Motivo</th>
+        <th>Status</th>
+        <th>Data de Emissão</th>
+        <th>Ações</th>
+    </tr>
+    {% for e in encaminhamentos %}
+    <tr>
+        <td>{{ e.paciente }}</td>
+        <td>{{ e.profissional_origem }}</td>
+        <td>{{ e.especialidade_destino }}</td>
+        <td>{{ e.motivo }}</td>
+        <td>{{ e.status }}</td>
+        <td>{{ e.data_emissao }}</td>
+        <td>
+            {% if e.status == "Emitido" %}
+            <form method="POST" action="/encaminhamentos/receber" style="display:inline;">
+                <input type="hidden" name="cpf_paciente" value="{{ e.paciente }}">
+                <input type="hidden" name="especialidade_destino" value="{{ e.especialidade_destino }}">
+                <button type="submit">Marcar como Recebido</button>
+            </form>
+            {% else %}
+            ✔️ Recebido
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

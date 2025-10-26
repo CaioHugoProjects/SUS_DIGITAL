@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Bem-vindo ao SUS Digital</h2>
+<p>Escolha um dos módulos abaixo para acessar o sistema:</p>
+
+<div class="dashboard">
+    <a href="/pacientes" class="card">
+        <h3>👥 Pacientes</h3>
+        <p>Gerencie o cadastro de cidadãos atendidos pelo SUS.</p>
+    </a>
+
+    <a href="/profissionais" class="card">
+        <h3>🩺 Profissionais</h3>
+        <p>Cadastre e visualize médicos e profissionais de saúde.</p>
+    </a>
+
+    <a href="/agendamentos" class="card">
+        <h3>📅 Agendamentos</h3>
+        <p>Realize o agendamento de consultas médicas.</p>
+    </a>
+
+    <a href="/exames" class="card">
+        <h3>🔬 Exames</h3>
+        <p>Solicite exames e registre seus resultados.</p>
+    </a>
+
+    <a href="/encaminhamentos" class="card">
+        <h3>📄 Encaminhamentos</h3>
+        <p>Emita e acompanhe encaminhamentos digitais.</p>
+    </a>
+</div>
+{% endblock %}
